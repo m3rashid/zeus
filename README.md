@@ -17,40 +17,40 @@
 4. [ ] Authorization
    - [ ] Role Based Access Control (RBAC) `*`
    - [ ] Attribute Based Access Control (ABAC) `+`
-5. [ ] Security
-   - [ ] Encryption at rest `+`
+5. [ ] Security `*`
 6. [ ] Audit Logging (Who did what and when) `*`
 7. [ ] Structured Server Logging `*`
 8. [ ] Notifications `*`
    - [ ] Email `*`
    - [ ] Whatsapp `+`
 9. [ ] Platform wide search `*`
-10. [ ] Encrypted Key-Value store `*`
-11. [ ] Forms Builder `+`
-12. [ ] Email Templates Builder `+`
-13. [ ] Web hooks for other apps `+`
-14. [ ] Workspaces (Data independent spaces within a tenant) `*`
-15. [ ] Monitoring and Alerting `*`
-16. [ ] Print and Export from the server `*`
+10. [ ] Near Real Time (NRT) updates `*`
+11. [ ] Encrypted Key-Value store `*`
+12. [ ] Forms Builder `+`
+13. [ ] Email Templates Builder `+`
+14. [ ] Web hooks for other apps `+`
+15. [ ] Workspaces (Data independent spaces within a tenant) `*`
+16. [ ] Monitoring and Alerting `*`
+17. [ ] Print and Export from the server `*`
     - [ ] PDF `*`
     - [ ] CSV `*`
     - [ ] Word `+`
     - [ ] Excel `+`
     - [ ] Powerpoint `+`
-17. [ ] Clients `*`
+18. [ ] Clients `*`
     - [ ] Web `*`
     - [ ] REST APIs `*`
     - [ ] Mobile (iOS, Android) `*`
     - [ ] Desktop (Windows, Mac, Linux) `+`
     - [ ] CLI (Command Line Interface) `+`
     - [ ] GraphQL API `+`
-18. [ ] A solid Core and extensible apps model `*`
+19. [ ] A solid Core and extensible apps model `*`
     - [ ] Develop and deploy apps independently `*`
     - [ ] Develop apps independent of the core `+`
     - [ ] Marketplace (App store) for apps `+`
     - [ ] App versioning `+`
     - [ ] App submit and review process `#`
-19. [ ] Getting Started (customer facing) app for tenants `*`
+20. [ ] Getting Started (customer facing) app for tenants `*`
     - [ ] Easy onboarding for tenants `*`
     - [ ] External Payments and Billing `*`
     - [ ] Cost and price calculator `+`

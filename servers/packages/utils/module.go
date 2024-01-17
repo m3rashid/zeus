@@ -46,24 +46,28 @@ type Module struct {
 	ProtectedRoutes ProtectedRoutes
 }
 
-func (module *Module) HeartBeat() ModuleHeartBeat {
-	var endpointsMap = make(EndpointsMap)
+type Modules = []Module
+
+func (module *Module) GetEndpoints() Endpoints {
+	var endpointsMap = Endpoints{}
+
 	for route, routeDetails := range module.AnonymousRoutes {
-		endpointsMap[strings.Join([]string{"/api/anonymous", module.Name, route}, "/")] = Endpoint{
-			Method:      common.Ternary[HTTPMethod](routeDetails.HttpMethod == "", DEFAULT_HTTP_METHOD, routeDetails.HttpMethod),
-			Description: common.Ternary[string](routeDetails.Description == "", "No description provided", routeDetails.Description),
-		}
+		endpointsMap = append(endpointsMap, Endpoint{
+			AuthRequired: false,
+			URL:          strings.Join([]string{"/api/anonymous", module.Name, route}, "/"),
+			Method:       common.Ternary[HTTPMethod](routeDetails.HttpMethod == "", DEFAULT_HTTP_METHOD, routeDetails.HttpMethod),
+			Description:  common.Ternary[string](routeDetails.Description == "", "No description provided", routeDetails.Description),
+		})
 	}
 
 	for route, routeDetails := range module.ProtectedRoutes {
-		endpointsMap[strings.Join([]string{"/api", module.Name, route}, "/")] = Endpoint{
-			Method:      common.Ternary[HTTPMethod](routeDetails.HttpMethod == "", DEFAULT_HTTP_METHOD, routeDetails.HttpMethod),
-			Description: common.Ternary[string](routeDetails.Description == "", "No description provided", routeDetails.Description),
-		}
+		endpointsMap = append(endpointsMap, Endpoint{
+			AuthRequired: true,
+			URL:          strings.Join([]string{"/api", module.Name, route}, "/"),
+			Method:       common.Ternary[HTTPMethod](routeDetails.HttpMethod == "", DEFAULT_HTTP_METHOD, routeDetails.HttpMethod),
+			Description:  common.Ternary[string](routeDetails.Description == "", "No description provided", routeDetails.Description),
+		})
 	}
 
-	return ModuleHeartBeat{
-		ModuleName:   module.Name,
-		EndpointsMap: endpointsMap,
-	}
+	return endpointsMap
 }
