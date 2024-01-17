@@ -1,0 +1,7 @@
+go 1.21.5
+
+use (
+	./servers/packages/common
+	./servers/packages/utils
+	./servers/services/auth
+)
