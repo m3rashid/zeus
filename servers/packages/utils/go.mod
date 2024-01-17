@@ -5,7 +5,7 @@ go 1.21.5
 require (
 	github.com/Pacific73/gorm-cache v1.1.1
 	github.com/go-redis/redis/v8 v8.11.5
-	golang.org/x/crypto v0.14.0
+	golang.org/x/crypto v0.17.0
 	gorm.io/driver/postgres v1.5.4
 	gorm.io/gorm v1.25.5
 )
@@ -19,5 +19,5 @@ require (
 	github.com/jinzhu/inflection v1.0.0 // indirect
 	github.com/jinzhu/now v1.1.5 // indirect
 	github.com/karlseguin/ccache/v2 v2.0.8 // indirect
-	golang.org/x/text v0.13.0 // indirect
+	golang.org/x/text v0.14.0 // indirect
 )
