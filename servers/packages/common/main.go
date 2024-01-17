@@ -1,6 +1,8 @@
 package common
 
-import "golang.org/x/exp/constraints"
+import (
+	"golang.org/x/exp/constraints"
+)
 
 func Ternary[T interface{}](condition bool, trueVal T, falseVal T) T {
 	if condition {
