@@ -1,3 +1,3 @@
-module github.com/m3rashid/zeus/services/auth
+module auth
 
 go 1.21.5

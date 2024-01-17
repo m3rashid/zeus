@@ -1,4 +1,4 @@
-module github.com/m3rashid/zeus/packages/common
+module common
 
 go 1.21.5
 
