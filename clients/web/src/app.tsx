@@ -1,11 +1,5 @@
-import { Button } from '@zeus/components';
-
 const App = () => {
-  return (
-    <div class='bg-slate-400'>
-      <Button size='xs'>Hello world</Button>
-    </div>
-  );
+  return <div class='bg-slate-400'></div>;
 };
 
 export default App;
