@@ -3,6 +3,7 @@ package main
 import (
 	"auth/config"
 	"auth/discovery"
+	"auth/flow"
 	"log"
 	"os"
 	"utils"
@@ -35,6 +36,8 @@ func main() {
 
 	app.Get(utils.DISCOVERY_ENDPOINT, config.Server.DiscoveryHandler)
 	app.Get("/api/discover", discovery.DiscoverResourceServers)
+
+	flow.Setup(app)
 
 	log.Printf("Starting %s server ...\n", config.Server.Name)
 	app.Listen(":" + config.Server.ServerPort)

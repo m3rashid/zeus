@@ -37,11 +37,12 @@ type AnonymousRoutes = map[string]struct {
 
 type Schema = map[string]string
 type SchemaMap = map[string]Schema
+type Models = []interface{}
 
 type Module struct {
 	Name            string
 	SchemaMap       SchemaMap
-	Models          []interface{}
+	Models          Models
 	AnonymousRoutes AnonymousRoutes
 	ProtectedRoutes ProtectedRoutes
 }
