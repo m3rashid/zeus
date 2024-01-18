@@ -15,7 +15,10 @@
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true
+    "noFallthroughCasesInSwitch": true,
+    "paths": {
+      "@admin/*": ["./src/*"]
+    }
   },
   "include": ["src", "tests", "cypress"],
   "references": [{ "path": "./tsconfig.node.json" }]
