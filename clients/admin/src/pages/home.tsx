@@ -1,10 +1,8 @@
-import RootContainer from '../components/root';
-
 const HomePage = () => {
   return (
-    <RootContainer>
+    <div>
       <div>hello</div>
-    </RootContainer>
+    </div>
   );
 };
 

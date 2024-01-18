@@ -13,7 +13,6 @@
     "cypress": "cypress"
   },
   "dependencies": {
-    "flowbite": "^2.2.1",
     "solid-js": "^1.8.7"
   },
   "devDependencies": {
