@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-	content: ["./**/*.{html,js,jsx,ts,tsx}", "../@zeus/components/**/*.{html,js,jsx,ts,tsx}"],
+	content: ["./**/*.{html,js,jsx,ts,tsx}"],
 	theme: {
 		extend: {},
 	},
