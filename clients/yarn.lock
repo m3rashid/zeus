@@ -4970,6 +4970,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@solidjs/router@npm:^0.10.9":
+  version: 0.10.9
+  resolution: "@solidjs/router@npm:0.10.9"
+  peerDependencies:
+    solid-js: ^1.8.6
+  checksum: 33d3397c830f8aa0de7ba8d827f8b51c543314f451e43475622c6dab05aa09ea396d03cad17af8e92e0a9433b8917c64474018ccf52e6f405a509714c8bba6ed
+  languageName: node
+  linkType: hard
+
 "@solidjs/testing-library@npm:^0.8.5":
   version: 0.8.5
   resolution: "@solidjs/testing-library@npm:0.8.5"
@@ -15048,6 +15057,7 @@ __metadata:
   resolution: "zeus-admin@workspace:admin"
   dependencies:
     "@kobalte/core": "npm:^0.12.0"
+    "@solidjs/router": "npm:^0.10.9"
     "@solidjs/testing-library": "npm:^0.8.5"
     "@testing-library/jest-dom": "npm:^6.2.0"
     "@vitest/coverage-v8": "npm:^1.2.0"

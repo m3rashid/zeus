@@ -1,16 +1,12 @@
 import { Button } from '@admin/components/ui/button';
-import ModeToggle from '@admin/header/modeToggle';
-import { ColorModeProvider } from '@kobalte/core';
+import RootContainer from '@admin/root';
 
 const HomePage = () => {
   return (
-    <div>
-      <ColorModeProvider>
-        <div>hello</div>
-        <ModeToggle />
-        <Button variant='destructive'>Click me</Button>
-      </ColorModeProvider>
-    </div>
+    <RootContainer>
+      <div>hello</div>
+      <Button variant='destructive'>Click me</Button>
+    </RootContainer>
   );
 };
 
