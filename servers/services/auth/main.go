@@ -4,6 +4,7 @@ import (
 	"auth/config"
 	"auth/discovery"
 	"auth/flow"
+	"auth/templates"
 	"log"
 	"os"
 	"utils"
@@ -36,6 +37,14 @@ func main() {
 
 	app.Get(utils.DISCOVERY_ENDPOINT, config.Server.DiscoveryHandler)
 	app.Get("/api/discover", discovery.DiscoverResourceServers)
+	app.Get("/", func(ctx *fiber.Ctx) error {
+		ctx.Set("Content-Type", "text/html")
+		return templates.LoginOrRegister(templates.LoginOrRegisterProps{
+			IsLogin:     true,
+			LoginUrl:    "/login",
+			RegisterUrl: "/register",
+		}).Render(ctx.Context(), ctx.Response().BodyWriter())
+	})
 
 	flow.Setup(app)
 

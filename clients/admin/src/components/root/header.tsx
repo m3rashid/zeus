@@ -3,6 +3,7 @@ import { Component } from 'solid-js';
 import Brand from './brand';
 import ModeToggle from './modeToggle';
 import GlobalSearch from './globalSearch';
+import UserProfile from './userProfile';
 
 const Header: Component = () => {
   return (
@@ -11,6 +12,7 @@ const Header: Component = () => {
       <div class='flex items-center justify-center gap-2'>
         <GlobalSearch />
         <ModeToggle />
+        <UserProfile />
       </div>
     </header>
   );

@@ -24,7 +24,7 @@ const GlobalSearch: Component = () => {
   return (
     <Dialog modal onOpenChange={() => setSearchText('')}>
       <DialogTrigger asChild>
-        <As component={Button} variant='ghost' size='sm' class='w-9 px-0'>
+        <As component={Button} variant='ghost' size='sm' class='w-8 h-8 px-0'>
           <TbSearch />
           <span class='sr-only'>Global Search</span>
         </As>
