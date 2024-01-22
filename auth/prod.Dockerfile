@@ -38,6 +38,7 @@ FROM scratch
 
 COPY --from=builder /auth /auth
 COPY --from=builder /app/auth/.env /.env
+COPY --from=builder /etc/passwd /etc/passwd
 USER appuser:appuser
 
 ENTRYPOINT ["/auth"]

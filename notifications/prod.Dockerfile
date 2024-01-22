@@ -38,6 +38,7 @@ FROM scratch
 
 COPY --from=builder /notifications /notifications
 COPY --from=builder /app/notifications/.env /.env
+COPY --from=builder /etc/passwd /etc/passwd
 USER appuser:appuser
 
 ENTRYPOINT ["/notifications"]
