@@ -23,11 +23,11 @@ COPY go.work.sum go.work.sum
 COPY ../common common
 COPY ../notifications notifications
 
-RUN cd common && go mod download && go mod verify
+RUN cd common && go mod download
 
 WORKDIR /app/notifications
 
-RUN go mod download && go mod verify
+RUN go mod download
 
 RUN GOOS=linux GOARCH=amd64 go build -ldflags="-w -s" -o /notifications
 
