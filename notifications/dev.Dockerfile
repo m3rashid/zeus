@@ -4,7 +4,7 @@ RUN go install github.com/cosmtrek/air@latest
 
 WORKDIR /app
 
-COPY . /app/notifications/
+COPY ../notifications /app/notifications
 COPY ../common /app/common
 
 RUN cd common && go mod download
