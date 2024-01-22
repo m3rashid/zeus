@@ -33,3 +33,5 @@ dist-ssr
 # Docker stuff
 data/postgresDb
 data/dump.rdb
+
+tmp
