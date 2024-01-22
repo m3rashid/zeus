@@ -1,0 +1,26 @@
+{
+  "name": "zeus",
+  "version": "1.0.0",
+  "description": "Zeus workspace",
+  "main": "index.ts",
+  "private": true,
+  "workspaces": {
+    "packages": [
+      "types",
+      "web",
+      "mobile",
+      "admin"
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/m3rashid/zeus.git"
+  },
+  "author": "m3rashid <m3rashid.hussain@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/m3rashid/zeus/issues"
+  },
+  "homepage": "https://github.com/m3rashid/zeus#readme",
+  "packageManager": "yarn@4.0.2"
+}

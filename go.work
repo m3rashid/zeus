@@ -1,9 +1,7 @@
 go 1.21.5
 
 use (
-	./servers/packages/common
-	./servers/packages/models
-	./servers/packages/utils
-	./servers/services/auth
-	./servers/services/notifications
+	./auth
+	./common
+	./notifications
 )
