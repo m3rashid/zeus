@@ -18,6 +18,8 @@ type Server struct {
 	ServerIP   string      `json:"network_ip"`
 	ServerPort string      `json:"network_port"`
 	CorsConfig cors.Config `json:"cors_config"`
+	DBUri      string      `json:"db_uri"`
+	RedisUri   string      `json:"redis_uri"`
 	Logger     *slog.Logger
 }
 

@@ -23,6 +23,8 @@ func main() {
 		Modules:    []server.Module{},
 		ServerPort: os.Getenv("PORT"),
 		CorsConfig: cors.Config{},
+		DBUri:      os.Getenv("DB_URI"),
+		RedisUri:   os.Getenv("REDIS_URI"),
 	}
 
 	config.Server.SetupStructuredLogger()

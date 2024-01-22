@@ -26,14 +26,8 @@ type DefaultBaseModel struct {
 	CreatedAt time.Time `gorm:"column:createdAt; default:current_timestamp" json:"createdAt"`
 }
 
-type GetDbProps struct {
-	DbUri       string
-	RedisUri    string
-	RedisClient *redis.Client
-}
-
-func GetDb(props GetDbProps) (*gorm.DB, error) {
-	sqlDB, err := sql.Open("pgx", props.DbUri)
+func (server *Server) GetDb(redisClient *redis.Client) (*gorm.DB, error) {
+	sqlDB, err := sql.Open("pgx", server.DBUri)
 	if err != nil {
 		return nil, err
 	}
@@ -43,9 +37,9 @@ func GetDb(props GetDbProps) (*gorm.DB, error) {
 		return nil, err
 	}
 
-	newRedisClient := props.RedisClient
+	newRedisClient := redisClient
 	if newRedisClient == nil {
-		newRedisClient = GetRedisClient(props.RedisUri)
+		newRedisClient = server.GetRedisClient()
 	}
 
 	cache, err := cache.NewGorm2Cache(&config.CacheConfig{
@@ -56,6 +50,7 @@ func GetDb(props GetDbProps) (*gorm.DB, error) {
 		CacheTTL:             100000, // 100s
 		CacheMaxItemCnt:      20,     // if length of objects retrieved one single time exceeds this number, then don't cache
 	})
+
 	if err != nil {
 		fmt.Println("Error creating caching layer: ", err)
 		return nil, err

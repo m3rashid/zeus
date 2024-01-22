@@ -6,7 +6,7 @@ import (
 	"github.com/go-redis/redis/v8"
 )
 
-func GetRedisClient(redisUri string) *redis.Client {
+func (s Server) GetRedisClient() *redis.Client {
 	fmt.Println("Creating new redis client")
-	return redis.NewClient(&redis.Options{Addr: redisUri})
+	return redis.NewClient(&redis.Options{Addr: s.RedisUri})
 }
