@@ -9,36 +9,34 @@ import (
 )
 
 type LoginRequestBody struct {
-	Email    string `json:"email"`
-	Password string `json:"password"`
+	Email    string `json:"email" validate:"required"`
+	Password string `json:"password" validate:"required"`
 }
 
 func HandleLogin(ctx *fiber.Ctx) error {
 	var loginBody LoginRequestBody
 	if err := ctx.BodyParser(&loginBody); err != nil {
-		return err
+		return ctx.SendStatus(fiber.StatusBadRequest)
 	}
 
 	if err := validator.New().Struct(loginBody); err != nil {
-		return ctx.Status(fiber.StatusBadRequest).JSON(fiber.Map{})
+		return ctx.SendStatus(fiber.StatusBadRequest)
 	}
 
 	db, err := config.GetDb()
 	if err != nil {
-		return ctx.Status(fiber.StatusInternalServerError).JSON(fiber.Map{})
+		return ctx.SendStatus(fiber.StatusInternalServerError)
 	}
 
 	var user models.User
 	if err := db.Where("email = ?", loginBody.Email).First(&user).Error; err != nil {
-		return ctx.Status(fiber.StatusInternalServerError).JSON(fiber.Map{})
+		return ctx.SendStatus(fiber.StatusInternalServerError)
 	}
 
 	if user.ID == 0 || !user.ComparePassword(loginBody.Password) {
-		return ctx.Status(fiber.StatusInternalServerError).JSON(fiber.Map{})
+		return ctx.SendStatus(fiber.StatusInternalServerError)
 	}
 
 	addUserIDToCookie(ctx, user.ID)
-	return ctx.Status(fiber.StatusOK).JSON(fiber.Map{
-		"user": user,
-	})
+	return ctx.SendStatus(fiber.StatusOK)
 }

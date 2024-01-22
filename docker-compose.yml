@@ -1,0 +1,61 @@
+name: zeus
+
+networks:
+  default:
+    name: zeus
+
+services:
+  auth:
+    build:
+      context: .
+      dockerfile: ./auth/Dockerfile
+    restart: always
+    env_file:
+      - ./auth/.env
+    volumes:
+      - ./auth:/app/auth
+      - ./common:/app/common
+    ports:
+      - 5000:5000
+    command: air
+    depends_on:
+      - database
+
+  notifications:
+    build:
+      context: .
+      dockerfile: notifications/Dockerfile
+    restart: always
+    env_file:
+      - ./notifications/.env
+    volumes:
+      - ./campaigns:/app/campaigns
+      - ./common:/app/common
+    ports:
+      - 5001:5001
+    command: air
+    depends_on:
+      - database
+
+  database:
+    image: postgres:latest
+    restart: always
+    environment:
+      POSTGRES_USER: genos
+      POSTGRES_PASSWORD: genos
+      POSTGRES_MULTIPLE_DATABASES: auth,notifications
+    ports:
+      - 5432:5432
+    volumes:
+      - ./data/postgresDb:/var/lib/postgresql/data
+      - ./pg-init-scripts:/docker-entrypoint-initdb.d
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:latest
+    restart: always
+    volumes:
+      - ./data:/data
+    ports:
+      - 6379:6379

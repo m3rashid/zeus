@@ -31,3 +31,7 @@ func RemoveDuplicates[T constraints.Ordered](arr []T) []T {
 
 	return newArr
 }
+
+func GenerateOtp() string {
+	return "123456"
+}

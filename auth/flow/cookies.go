@@ -46,3 +46,15 @@ func addUserIDToCookie(ctx *fiber.Ctx, userID uint) {
 	existingUserIDs = append(existingUserIDs, userID)
 	setLocalUsersCookie(ctx, existingUserIDs)
 }
+
+func removeUserIDFromCookie(ctx *fiber.Ctx, userID uint) {
+	var newUserIDs []uint
+	existingUserIDs := getLocalUserIDsFromCookie(ctx)
+	for _, existingUserID := range existingUserIDs {
+		if existingUserID != userID {
+			newUserIDs = append(newUserIDs, existingUserID)
+		}
+	}
+
+	setLocalUsersCookie(ctx, newUserIDs)
+}
