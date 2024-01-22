@@ -4,6 +4,7 @@ import (
 	"auth/config"
 	"auth/discovery"
 	"auth/flow"
+	"auth/web"
 	"common/server"
 	"log"
 	"os"
@@ -36,7 +37,7 @@ func main() {
 
 	app.Get(server.DISCOVERY_ENDPOINT, config.Server.DiscoveryHandler)
 	app.Get("/api/discover", discovery.DiscoverResourceServers)
-
+	web.HandleWeb(app)
 	flow.Setup(app)
 
 	log.Printf("Starting %s server ...\n", config.Server.Name)
