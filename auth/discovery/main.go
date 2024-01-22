@@ -13,7 +13,7 @@ import (
 )
 
 var DiscoveryEndpoints = map[string]string{
-	"notifications": "http://localhost:5001" + server.DISCOVERY_ENDPOINT,
+	"notifications": "http://notifications:5001" + server.DISCOVERY_ENDPOINT,
 	// ...
 }
 
