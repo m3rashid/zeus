@@ -1,8 +1,8 @@
-name: zeus
+name: zeus-dev
 
 networks:
   default:
-    name: zeus
+    name: zeus-dev
 
 services:
   auth:
