@@ -34,9 +34,7 @@
 17. [ ] Print and Export from the server `*`
     - [ ] PDF `*`
     - [ ] CSV `*`
-    - [ ] Word `+`
     - [ ] Excel `+`
-    - [ ] Powerpoint `+`
 18. [ ] Clients `*`
     - [ ] Web `*`
     - [ ] REST APIs `*`
@@ -55,12 +53,6 @@
     - [ ] External Payments and Billing `*`
     - [ ] Cost and price calculator `+`
     - [ ] Limits and Quotas `+`
-
-<br />
-
-### Client Side General Features
-
-1.
 
 <br />
 

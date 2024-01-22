@@ -14,7 +14,11 @@ var (
 	index embed.FS
 )
 
-var uiRoutes = []string{"/hello"}
+var uiRoutes = []string{
+	"/auth/login",
+	"/auth/register",
+	"/auth/choose-user",
+}
 
 func HandleWeb(app *fiber.App) {
 	_index, err := fs.Sub(index, "dist")
