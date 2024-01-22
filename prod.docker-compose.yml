@@ -8,32 +8,26 @@ services:
   auth:
     build:
       context: .
-      dockerfile: ./auth/Dockerfile
+      dockerfile: ./auth/prod.Dockerfile
     restart: always
     env_file:
       - ./auth/.env
-    volumes:
-      - ./auth:/app/auth
-      - ./common:/app/common
     ports:
       - 5000:5000
-    command: air
+    command: ./auth
     depends_on:
       - database
 
   notifications:
     build:
       context: .
-      dockerfile: notifications/Dockerfile
+      dockerfile: notifications/prod.Dockerfile
     restart: always
     env_file:
       - ./notifications/.env
-    volumes:
-      - ./campaigns:/app/campaigns
-      - ./common:/app/common
     ports:
       - 5001:5001
-    command: air
+    command: ./notifications
     depends_on:
       - database
 

@@ -29,3 +29,7 @@ dist-ssr
 *.sw?
 
 *_templ.go
+
+# Docker stuff
+data/postgresDb
+data/dump.rdb
