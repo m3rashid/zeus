@@ -3,11 +3,16 @@
 ### Getting Started
 
 ```bash
+# Setup (make sure you have nodejs 20 installed)
+yarn
+
 # Development Environment
-docker compose -f dev.docker-compose.yml up
+yarn dev:up		# start
+yarn dev:down	# stop
 
 # Production Environment
-docker compose -f prod.docker-compose.yml up
+yarn prod:up		# start
+yarn prod:down	# stop
 ```
 
 <br />
