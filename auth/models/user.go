@@ -13,6 +13,7 @@ type User struct {
 	Password       string `json:"password" gorm:"column:password;not null" validate:"required"`
 	OTP            string `json:"otp" gorm:"column:otp;not null" validate:"required"`
 	UserVerified   bool   `json:"user_verified" gorm:"column:user_verified;default:false" validate:""`
+	ProfilePicUrl  string `json:"profilePicUrl" gorm:"column:profilePicUrl" validate:""`
 	OrganizationID uint   `json:"organization_id" gorm:"column:organization_id" validate:""` // if present, it means user belongs to an organization
 }
 

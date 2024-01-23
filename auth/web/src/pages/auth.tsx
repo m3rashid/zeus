@@ -1,4 +1,4 @@
-import { Component } from 'solid-js';
+import { Component, Show, createSignal } from 'solid-js';
 
 import {
   Tabs,
@@ -22,14 +22,60 @@ import { useLocation, useNavigate } from '@solidjs/router';
 const Auth: Component = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const [errors, setErrors] = createSignal<string[]>([]);
+
+  const currentRoute =
+    location.pathname.split('/').at(-1) === 'login' ? 'login' : 'register';
+
+  const onSubmit = async (
+    event: Event & {
+      currentTarget: HTMLFormElement;
+      target: Element;
+    }
+  ) => {
+    event.preventDefault();
+    const formErrors: string[] = [];
+    const formData = new FormData(event.currentTarget);
+    const values = Object.fromEntries(formData);
+    if (!values.email || !values.email.toString().includes('@'))
+      formErrors.push('Please enter a valid email');
+    if (!values.password) formErrors.push('Please enter Password');
+
+    if (currentRoute === 'register') {
+      if (!values.confirmPassword)
+        formErrors.push('Please confirm your Password');
+      if (!values.name) formErrors.push('Please enter your name');
+      if (values.password !== values.confirmPassword)
+        formErrors.push('Passwords do not match');
+    }
+    if (formErrors.length > 0) {
+      setErrors(formErrors);
+      return;
+    }
+
+    try {
+      const res = await fetch(
+        `http://localhost:5000/api/flow/${currentRoute}`,
+        { method: 'POST', body: JSON.stringify(values) }
+      );
+      if (!res.ok) {
+        setErrors([
+          `There was an error ${
+            currentRoute === 'login' ? 'logging' : 'registering'
+          } you`,
+        ]);
+      }
+      console.log(res);
+    } catch (err) {
+      setErrors(['There was an error contacting the server']);
+    }
+  };
 
   return (
-    <div class='w-full h-screen flex items-center justify-center'>
+    <div class='w-full min-h-screen flex items-center justify-center overflow-auto h-full'>
       <Tabs
         class='w-[400px]'
-        defaultValue={
-          location.pathname.split('/').at(-1) === 'login' ? 'login' : 'register'
-        }
+        defaultValue={currentRoute}
         onChange={(route) => navigate('/auth/' + route + location.search)}
       >
         <TabsList class='grid w-full grid-cols-2'>
@@ -42,18 +88,28 @@ const Auth: Component = () => {
             <CardHeader>
               <CardTitle>Login</CardTitle>
               <CardDescription>
-                Please Enter your credentials to login.
+                Please enter your credentials to login.
               </CardDescription>
             </CardHeader>
-            <form>
+            <form onSubmit={onSubmit}>
               <CardContent class='space-y-2'>
                 <div class='space-y-1'>
                   <Label for='email'>Email</Label>
-                  <Input id='email' placeholder='someone@example.com' />
+                  <Input
+                    name='email'
+                    id='email'
+                    type='email'
+                    placeholder='someone@example.com'
+                  />
                 </div>
                 <div class='space-y-1'>
                   <Label for='password'>Password</Label>
-                  <Input id='password' placeholder='Shh ...' type='password' />
+                  <Input
+                    name='password'
+                    id='password'
+                    placeholder='Shh ...'
+                    type='password'
+                  />
                 </div>
               </CardContent>
               <CardFooter>
@@ -66,26 +122,66 @@ const Auth: Component = () => {
         <TabsContent value='register'>
           <Card>
             <CardHeader>
-              <CardTitle>Password</CardTitle>
+              <CardTitle>Register</CardTitle>
               <CardDescription>
-                Change your password here. After saving, you'll be logged out.
+                Please enter your details to create account
               </CardDescription>
             </CardHeader>
-            <CardContent class='space-y-2'>
-              <div class='space-y-1'>
-                <Label for='current'>Current password</Label>
-                <Input id='current' type='password' />
-              </div>
-              <div class='space-y-1'>
-                <Label for='new'>New password</Label>
-                <Input id='new' type='password' />
-              </div>
-            </CardContent>
-            <CardFooter>
-              <Button>Save password</Button>
-            </CardFooter>
+            <form onSubmit={onSubmit}>
+              <CardContent class='space-y-2'>
+                <div class='space-y-1'>
+                  <Label for='name'>Name</Label>
+                  <Input name='name' id='name' placeholder='Someone' />
+                </div>
+                <div class='space-y-1'>
+                  <Label for='email'>Email</Label>
+                  <Input
+                    id='email'
+                    name='email'
+                    type='email'
+                    placeholder='someone@example.com'
+                  />
+                </div>
+                <div class='space-y-1'>
+                  <Label for='password'>Password</Label>
+                  <Input
+                    name='password'
+                    id='password'
+                    placeholder='Shh ...'
+                    type='password'
+                  />
+                </div>
+                <div class='space-y-1'>
+                  <Label for='confirmPassword'>Password</Label>
+                  <Input
+                    name='confirmPassword'
+                    id='confirmPassword'
+                    placeholder='Shh ...'
+                    type='password'
+                  />
+                </div>
+              </CardContent>
+              <CardFooter>
+                <Button type='submit'>Create Account</Button>
+              </CardFooter>
+            </form>
           </Card>
         </TabsContent>
+
+        <Show when={errors().length > 0}>
+          <Card class='mt-2'>
+            <CardHeader>
+              <CardTitle>Errors</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div class='space-y-1'>
+                {errors().map((err) => (
+                  <p>{err}</p>
+                ))}
+              </div>
+            </CardContent>
+          </Card>
+        </Show>
       </Tabs>
     </div>
   );

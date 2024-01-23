@@ -22,7 +22,7 @@ var FlowModule = server.Module{
 			Description: "Select user to login as",
 		},
 		"/get-select-users": {
-			HttpMethod:  "POST",
+			HttpMethod:  "GET",
 			Controller:  GetUsersToSelect,
 			Description: "Get list of users to select from",
 		},
