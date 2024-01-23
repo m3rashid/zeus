@@ -6,7 +6,6 @@ ENV USER=genos
 ENV UID=10001
 RUN adduser --disabled-password --gecos "" --home "/nonexistent" --shell "/sbin/nologin" --no-create-home --uid "${UID}" "${USER}"
 
-RUN go install github.com/cosmtrek/air@latest
 WORKDIR /app
 
 RUN cat <<EOF >> go.work

@@ -4,8 +4,17 @@ RUN go install github.com/cosmtrek/air@latest
 
 WORKDIR /app
 
-COPY ../auth /app/auth
-COPY ../common /app/common
+RUN cat <<EOF >> go.work
+go 1.21.5
+
+use (
+	"./auth"
+	"./common"
+)
+EOF
+COPY ./go.work.sum go.work.sum
+COPY ../auth auth
+COPY ../common common
 
 RUN cd common && go mod download
 

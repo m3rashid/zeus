@@ -5,10 +5,12 @@
   "main": "index.ts",
   "private": true,
   "scripts": {
-    "dev:up": "docker compose -f dev.docker-compose.yml --progress=plain up",
-    "prod:up": "docker compose -f prod.docker-compose.yml --progress=plain up",
-		"dev:down": "docker compose -f dev.docker-compose.yml --progress=plain down",
-    "prod:down": "docker compose -f prod.docker-compose.yml --progress=plain down"
+		"dev": "docker compose -f dev.docker-compose.yml",
+		"prod": "docker compose -f prod.docker-compose.yml",
+    "dev:up": "yarn dev up",
+    "prod:up": "yarn prod up",
+		"dev:down": "yarn dev down",
+    "prod:down": "yarn prod down"
   },
   "workspaces": {
     "packages": [

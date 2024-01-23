@@ -4,8 +4,17 @@ RUN go install github.com/cosmtrek/air@latest
 
 WORKDIR /app
 
-COPY ../notifications /app/notifications
-COPY ../common /app/common
+RUN cat <<EOF >> go.work
+go 1.21.5
+
+use (
+	"./notifications"
+	"./common"
+)
+EOF
+COPY go.work.sum go.work.sum
+COPY ../common common
+COPY ../notifications notifications
 
 RUN cd common && go mod download
 
