@@ -1,12 +1,17 @@
 package server
 
-import "time"
+import (
+	"time"
+
+	"github.com/gofiber/fiber/v2"
+)
 
 type Endpoint struct {
-	URL          string `json:"url"`
-	Method       string `json:"method"`
-	Description  string `json:"description"`
-	AuthRequired bool   `json:"auth_required"`
+	Path         string                     `json:"path"`
+	Method       string                     `json:"method"`
+	Description  string                     `json:"description"`
+	AuthRequired bool                       `json:"auth_required"`
+	Controller   func(ctx *fiber.Ctx) error `json:"-"`
 }
 
 type Endpoints []Endpoint

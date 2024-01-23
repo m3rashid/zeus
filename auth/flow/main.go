@@ -1,44 +1,47 @@
 package flow
 
 import (
+	"auth/models"
 	"common/server"
-
-	"github.com/gofiber/fiber/v2"
 )
 
 var FlowModule = server.Module{
 	Name:      "flow",
 	SchemaMap: server.SchemaMap{},
-	Models:    server.Models{},
+	Models: server.Models{
+		models.Acl{},
+		models.Group{},
+		models.Tenant{},
+		models.User{},
+		models.Client{},
+	},
 	ProtectedRoutes: server.ProtectedRoutes{
-		"/logout": {
+		"logout": {
 			HttpMethod:  "POST",
 			Controller:  HandleLogout,
 			Description: "Handle the logout request",
 		},
-		"/select-user": {
+		"select-user": {
 			HttpMethod:  "POST",
 			Controller:  HandleSelectUser,
 			Description: "Select user to login as",
 		},
-		"/get-select-users": {
+		"users": {
 			HttpMethod:  "GET",
 			Controller:  GetUsersToSelect,
 			Description: "Get list of users to select from",
 		},
 	},
 	AnonymousRoutes: server.AnonymousRoutes{
-		"/register": {
+		"register": {
 			HttpMethod:  "POST",
 			Controller:  HandleRegister,
 			Description: "Handle the register request",
 		},
-		"/login": {
+		"login": {
 			HttpMethod:  "POST",
 			Controller:  HandleLogin,
 			Description: "Handle the login request",
 		},
 	},
 }
-
-func Setup(app *fiber.App) {}

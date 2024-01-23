@@ -2,9 +2,11 @@ package server
 
 import (
 	"common/utils"
+	"log"
 	"strings"
 
 	"github.com/gofiber/fiber/v2"
+	"gorm.io/gorm"
 )
 
 type HTTPMethod = string
@@ -54,20 +56,40 @@ func (module *Module) GetEndpoints() Endpoints {
 	for route, routeDetails := range module.AnonymousRoutes {
 		endpointsMap = append(endpointsMap, Endpoint{
 			AuthRequired: false,
-			URL:          strings.Join([]string{"/api/anonymous", module.Name, route}, "/"),
+			Path:         strings.Join([]string{"/api/anonymous", module.Name, route}, "/"),
 			Method:       utils.Ternary[HTTPMethod](routeDetails.HttpMethod == "", DEFAULT_HTTP_METHOD, routeDetails.HttpMethod),
 			Description:  utils.Ternary[string](routeDetails.Description == "", "No description provided", routeDetails.Description),
+			Controller:   routeDetails.Controller,
 		})
 	}
 
 	for route, routeDetails := range module.ProtectedRoutes {
 		endpointsMap = append(endpointsMap, Endpoint{
 			AuthRequired: true,
-			URL:          strings.Join([]string{"/api", module.Name, route}, "/"),
+			Path:         strings.Join([]string{"/api", module.Name, route}, "/"),
 			Method:       utils.Ternary[HTTPMethod](routeDetails.HttpMethod == "", DEFAULT_HTTP_METHOD, routeDetails.HttpMethod),
 			Description:  utils.Ternary[string](routeDetails.Description == "", "No description provided", routeDetails.Description),
+			Controller:   routeDetails.Controller,
 		})
 	}
 
 	return endpointsMap
+}
+
+func (server *Server) SetupEndpoints(app *fiber.App) {
+	for _, module := range server.Modules {
+		endpoints := module.GetEndpoints()
+		for _, endpoint := range endpoints {
+			app.Add(endpoint.Method, endpoint.Path, endpoint.Controller)
+		}
+	}
+}
+
+func (server *Server) MigrateDbModels(db *gorm.DB) {
+	models := []interface{}{}
+	for _, module := range server.Modules {
+		models = append(models, module.Models...)
+	}
+	log.Println("Migrating Models for ", server.Name)
+	db.AutoMigrate(models...)
 }

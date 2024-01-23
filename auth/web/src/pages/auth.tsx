@@ -18,6 +18,7 @@ import { Input } from '@web/components/ui/input';
 import { Label } from '@web/components/ui/label';
 import { Button } from '@web/components/ui/button';
 import { useLocation, useNavigate } from '@solidjs/router';
+import axios from 'axios';
 
 const Auth: Component = () => {
   const navigate = useNavigate();
@@ -54,18 +55,11 @@ const Auth: Component = () => {
     }
 
     try {
-      const res = await fetch(
-        `http://localhost:5000/api/flow/${currentRoute}`,
-        { method: 'POST', body: JSON.stringify(values) }
+      await axios.post(
+        `http://localhost:5000/api/anonymous/flow/${currentRoute}`,
+        values
       );
-      if (!res.ok) {
-        setErrors([
-          `There was an error ${
-            currentRoute === 'login' ? 'logging' : 'registering'
-          } you`,
-        ]);
-      }
-      console.log(res);
+      navigate('/auth/choose-user' + location.search);
     } catch (err) {
       setErrors(['There was an error contacting the server']);
     }

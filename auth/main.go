@@ -23,7 +23,7 @@ func main() {
 	config.Server = server.Server{
 		Name:       "auth",
 		ServerIP:   "localhost",
-		Modules:    []server.Module{},
+		Modules:    []server.Module{flow.FlowModule},
 		ServerPort: os.Getenv("PORT"),
 		CorsConfig: cors.Config{},
 		DBUri:      os.Getenv("DB_URI"),
@@ -37,10 +37,17 @@ func main() {
 	app := fiber.New(config.Server.GetDefaultFiberConfig(fiber.Config{}))
 	app.Use(cors.New(config.Server.CorsConfig))
 
+	db, err := config.GetDb()
+	if err != nil {
+		log.Println("Error in connecting to the database")
+		os.Exit(1)
+	}
+	config.Server.MigrateDbModels(db)
+
 	app.Get(server.DISCOVERY_ENDPOINT, config.Server.DiscoveryHandler)
 	app.Get("/api/discover", discovery.DiscoverResourceServers)
+	config.Server.SetupEndpoints(app)
 	web.HandleWeb(app)
-	flow.Setup(app)
 
 	log.Printf("Starting %s server ...\n", config.Server.Name)
 	app.Listen(":" + config.Server.ServerPort)

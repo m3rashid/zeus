@@ -51,15 +51,6 @@ func HandleRegister(ctx *fiber.Ctx) error {
 		return ctx.SendStatus(fiber.StatusInternalServerError)
 	}
 
-	var user models.User
-	if err := db.Where("email = ?", registerBody.Email).First(&user).Error; err != nil {
-		return ctx.SendStatus(fiber.StatusInternalServerError)
-	}
-
-	if user.ID != 0 {
-		return ctx.SendStatus(fiber.StatusConflict)
-	}
-
 	newUser := models.User{
 		Name:     registerBody.Name,
 		Email:    registerBody.Email,

@@ -5,7 +5,6 @@ import (
 	"encoding/json"
 	"fmt"
 	"io"
-	"log"
 	"net/http"
 	"time"
 
@@ -24,7 +23,6 @@ func DiscoverServers() {
 
 	for range timeTick.C {
 		for name, url := range DiscoveryEndpoints {
-			log.Printf("Discovering %s server at %s", name, url)
 			response, err := http.Get(url)
 			if err != nil {
 				fmt.Printf("Error in getting response from %s server\n", name)
