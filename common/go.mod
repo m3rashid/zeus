@@ -5,7 +5,7 @@ go 1.21.5
 require (
 	github.com/Pacific73/gorm-cache v1.1.1
 	github.com/go-redis/redis/v8 v8.11.5
-	github.com/gofiber/fiber/v2 v2.52.0
+	github.com/gofiber/fiber/v2 v2.52.1
 	github.com/google/uuid v1.5.0
 	golang.org/x/exp v0.0.0-20240119083558-1b970713d09a
 	gorm.io/driver/postgres v1.5.4
