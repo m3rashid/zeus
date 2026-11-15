@@ -2,18 +2,34 @@
 
 # ⚡ ZEUS
 
-**SaaS framework skeleton — monorepo.** Multi-tenant foundation with OIDC/OAuth2 auth, RBAC/ABAC, audit logging, notifications.
+### SaaS framework skeleton — monorepo
 
-[![Node](https://img.shields.io/badge/Node-20-339933?logo=node.js&logoColor=white)](https://nodejs.org)
-[![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg)](LICENSE)
+[![Node](https://img.shields.io/badge/Node-20-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org)
+[![License: ISC](https://img.shields.io/badge/License-ISC-blue?style=for-the-badge)](LICENSE)
+
+> *A reusable, multi-tenant SaaS foundation.*
 
 </div>
 
 ---
 
+## 📖 Overview
+
+**ZEUS** is a SaaS framework skeleton organized as a monorepo. It combines Go microservices (auth, notifications, common) with a Yarn workspace frontend (types, web, mobile, admin), all Dockerized with Postgres.
+
 ## 🗂 Workspace
 
-`types/` `web/` `mobile/` `admin/` (Yarn workspaces) + Go microservices: `auth/`, `notifications/`, `common/`.
+```
+zeus/
+├── types/          # shared types
+├── web/            # web app
+├── mobile/         # mobile app
+├── admin/          # admin panel
+├── auth/           # auth microservice (Go)
+├── notifications/  # notifications microservice (Go)
+├── common/         # shared Go code
+└── docker-compose (dev/prod)
+```
 
 ## 🎯 Planned features
 
@@ -23,7 +39,7 @@
 - 🛡 Authorization: RBAC, ABAC
 - 📋 Security, audit logging, structured server logging, notifications
 
-## 🛠 Tech
+## 🛠 Tech stack
 
 `Go` · `Node (Yarn 4)` · `Postgres` · `Docker`
 
@@ -39,4 +55,4 @@ yarn dev:down  # stop
 
 ## 📄 License
 
-ISC
+ISC © [m3rashid](https://github.com/m3rashid)
